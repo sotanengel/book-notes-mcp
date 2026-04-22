@@ -63,13 +63,47 @@ npm run sync
 [5/5] Building index...   # SQLite インデックス再構築
 ```
 
-### 2. CLI コマンド一覧
+### 2. 読書メモ（Markdown）
+
+`add` を実行すると YAML と同時に `memos/<slug>.md` が自動生成されます。タイトル・著者・ISBN などの情報が事前入力された状態で作られるので、空欄を埋めるだけです。
+
+```markdown
+# 複利で伸びる1つの習慣
+
+| | |
+|---|---|
+| 著者 | James Clear |
+| 原題 | Atomic Habits |
+| 出版年 | 2018 |
+| ISBN | 9780735211292 |
+| ステータス | to-read |
+| URL | |
+
+---
+
+## なぜ読む
+## 読書メモ
+## 重要概念
+## 印象に残った言葉
+## アクション
+```
+
+メモは `memos/` ディレクトリに保存され、Git で管理されます。
+
+### 3. CLI コマンド一覧
 
 ```bash
 # ── 基本ワークフロー ──────────────────────────────────────────────────
 npm run sync                             # 全パイプラインを一括実行（推奨）
 npm run sync -- --skip-enrich            # ネットワーク不要モード
 npm run sync -- books/foo-bar-2024.yaml  # 特定ファイルのみ処理
+
+# ── メモ管理 ──────────────────────────────────────────────────────────
+npm run add                              # 対話式でエントリ作成 → メモも自動生成
+npm run memo:new                         # 既存 YAML からメモを一括生成
+npm run memo:new -- books/foo.yaml       # 特定ファイルのメモを生成
+npm run memo:format                      # 全メモの空白・改行を正規化
+npm run memo:format -- --check           # フォーマットが必要なファイルを検出のみ
 
 # ── 個別コマンド ──────────────────────────────────────────────────────
 npm run validate -- books/               # スキーマ検証
@@ -78,7 +112,6 @@ npm run format -- books/                 # YAML 整形
 npm run enrich -- books/                 # OpenBD メタデータ補完
 npm run check-refs                       # connections の参照整合性チェック
 npm run index build                      # SQLite インデックス構築
-npm run add                              # 対話式で新規エントリを作成
 ```
 
 ### 3. MCP Tools

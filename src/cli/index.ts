@@ -5,6 +5,7 @@ import { runCheckRefs } from "./commands/check-refs.js";
 import { runEnrich } from "./commands/enrich.js";
 import { runFormat } from "./commands/format.js";
 import { runIndexBuild, runIndexStatus } from "./commands/index-cmd.js";
+import { runMemoFormat, runMemoNew } from "./commands/memo.js";
 import { runSync } from "./commands/sync.js";
 import { runValidate } from "./commands/validate.js";
 
@@ -103,5 +104,23 @@ program
       });
     }
   );
+
+const memoCmd = program.command("memo").description("Manage reading memo markdown files");
+
+memoCmd
+  .command("new [files...]")
+  .description("Create memo file(s) for existing YAML entries (skips if memo already exists)")
+  .option("--memos <dir>", "Path to memos directory", "memos")
+  .action((files: string[], opts: { memos: string }) => {
+    runMemoNew(files, opts.memos);
+  });
+
+memoCmd
+  .command("format [dir]")
+  .description("Normalize whitespace and blank lines in all memo files")
+  .option("--check", "Exit with error if any file would be reformatted")
+  .action((dir: string | undefined, opts: { check?: boolean }) => {
+    runMemoFormat(dir ?? "memos", opts);
+  });
 
 program.parse();
