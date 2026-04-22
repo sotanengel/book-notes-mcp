@@ -7,37 +7,13 @@ interface BookData {
   title?: string;
   title_ja?: string;
   authors?: string[];
-  publication_year?: number;
-  isbn_13?: string;
-  status?: string;
 }
 
 function buildTemplate(slug: string, data: BookData): string {
   const heading = data.title_ja ?? data.title ?? slug;
-  const authors = (data.authors ?? []).join(", ") || "—";
-  const year = data.publication_year ? String(data.publication_year) : "—";
-  const isbn = data.isbn_13 ?? "—";
-  const status = data.status ?? "to-read";
-
-  const rows = [
-    `| 著者 | ${authors} |`,
-    data.title_ja ? `| 原題 | ${data.title ?? "—"} |` : null,
-    `| 出版年 | ${year} |`,
-    `| ISBN | ${isbn} |`,
-    `| ステータス | ${status} |`,
-    "| URL | |",
-  ]
-    .filter(Boolean)
-    .join("\n");
 
   return [
     `# ${heading}`,
-    "",
-    "| | |",
-    "|---|---|",
-    rows,
-    "",
-    "---",
     "",
     "## なぜ読む",
     "",

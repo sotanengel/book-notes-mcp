@@ -83,7 +83,7 @@ export async function runAdd(booksDir: string): Promise<void> {
     writeFileSync(outPath, `${lines.join("\n")}\n`, "utf-8");
     console.log(`\n✓ Created: ${outPath}`);
 
-    const memoPath = createMemo("memos", slug, { title, authors });
+    const memoPath = createMemo("memos", slug, { title });
     if (memoPath) console.log(`✓ Memo:    ${memoPath}`);
 
     console.log("\nNext steps:");
