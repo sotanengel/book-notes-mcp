@@ -1,6 +1,6 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
-import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { FindConnectionsInput } from "../schemas/tool-inputs.js";
 
 export const findConnectionsDef: Tool = {

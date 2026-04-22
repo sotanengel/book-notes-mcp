@@ -1,5 +1,5 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { SearchHighlightsInput } from "../schemas/tool-inputs.js";
 
 export const searchHighlightsDef: Tool = {
@@ -16,10 +16,7 @@ export const searchHighlightsDef: Tool = {
   },
 };
 
-export function handleSearchHighlights(
-  args: unknown,
-  db: Database.Database
-): CallToolResult {
+export function handleSearchHighlights(args: unknown, db: Database.Database): CallToolResult {
   const params = SearchHighlightsInput.parse(args);
 
   const bookFilter = params.book_id ? "AND h.book_id = ?" : "";

@@ -11,9 +11,7 @@ const limitSchema = z.number().int().min(1).max(100).default(20);
 const offsetSchema = z.number().int().min(0).default(0);
 
 export const ListBooksInput = z.object({
-  status: z
-    .enum(["to-read", "reading", "completed", "abandoned", "reference"])
-    .optional(),
+  status: z.enum(["to-read", "reading", "completed", "abandoned", "reference"]).optional(),
   genre: z.string().max(50).optional(),
   language: z.enum(["ja", "en", "zh", "de", "fr", "es", "ko", "other"]).optional(),
   tag: z.string().max(50).optional(),

@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { basename } from "node:path";
-import Database from "better-sqlite3";
+import type Database from "better-sqlite3";
 import { parse } from "yaml";
 
 interface BookEntry {
@@ -94,8 +94,13 @@ export function indexBookFile(db: Database.Database, filePath: string): void {
         INSERT INTO highlights (book_id, highlight_id, page, location, text, note, tags)
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `).run(
-        data.id, h.id, h.page ?? null, h.location ?? null,
-        h.text, h.note ?? null, JSON.stringify(h.tags ?? [])
+        data.id,
+        h.id,
+        h.page ?? null,
+        h.location ?? null,
+        h.text,
+        h.note ?? null,
+        JSON.stringify(h.tags ?? [])
       );
       db.prepare(`
         INSERT INTO highlights_fts (book_id, highlight_id, text, note)
@@ -123,10 +128,7 @@ export function indexBookFile(db: Database.Database, filePath: string): void {
       db.prepare(`
         INSERT INTO action_items (book_id, action_id, action, priority, status, deadline)
         VALUES (?, ?, ?, ?, ?, ?)
-      `).run(
-        data.id, a.id, a.action, a.priority,
-        a.status ?? "pending", a.deadline ?? null
-      );
+      `).run(data.id, a.id, a.action, a.priority, a.status ?? "pending", a.deadline ?? null);
     }
 
     // Connections

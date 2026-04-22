@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parse } from "yaml";
 import { describe, expect, it } from "vitest";
+import { parse } from "yaml";
 import { applyBusinessRules } from "../src/validator/business-rules.js";
 import { validateBookEntry } from "../src/validator/schema-validator.js";
 import { createResult } from "../src/validator/types.js";

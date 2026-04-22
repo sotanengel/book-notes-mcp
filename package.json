@@ -2,6 +2,7 @@
   "name": "book-notes-mcp",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Business book notes management & MCP knowledge server",
   "license": "MIT",
   "engines": {
@@ -31,11 +32,12 @@
     "@biomejs/biome": "1.9.4",
     "@types/better-sqlite3": "7.6.12",
     "@types/node": "22.10.7",
+    "@vitest/coverage-v8": "4.1.5",
     "husky": "9.1.7",
     "lint-staged": "15.3.0",
-    "tsx": "4.19.2",
+    "tsx": "4.21.0",
     "typescript": "5.7.3",
-    "vitest": "2.1.8"
+    "vitest": "4.1.5"
   },
   "dependencies": {
     "ajv": "8.18.0",
@@ -46,7 +48,11 @@
     "zod": "3.24.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["biome check --write"],
-    "books/**/*.yaml": ["tsx src/cli/index.ts validate"]
+    "*.{ts,tsx}": [
+      "biome check --write"
+    ],
+    "books/**/*.yaml": [
+      "tsx src/cli/index.ts validate"
+    ]
   }
 }

@@ -1,11 +1,10 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { SearchBooksInput } from "../schemas/tool-inputs.js";
 
 export const searchBooksDef: Tool = {
   name: "search_books",
-  description:
-    "Full-text search across book titles, authors, summaries, and tags.",
+  description: "Full-text search across book titles, authors, summaries, and tags.",
   inputSchema: {
     type: "object",
     required: ["query"],

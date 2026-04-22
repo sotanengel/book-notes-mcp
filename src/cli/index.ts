@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { runAdd } from "./commands/add.js";
 import { runCheckRefs } from "./commands/check-refs.js";
+import { runEnrich } from "./commands/enrich.js";
 import { runFormat } from "./commands/format.js";
 import { runIndexBuild, runIndexStatus } from "./commands/index-cmd.js";
 import { runValidate } from "./commands/validate.js";
 
 const program = new Command();
 
-program
-  .name("book-notes")
-  .description("CLI for managing book note YAML entries")
-  .version("0.1.0");
+program.name("book-notes").description("CLI for managing book note YAML entries").version("0.1.0");
 
 program
   .command("validate [files...]")
@@ -29,15 +28,37 @@ program
     runFormat(files, opts);
   });
 
+program
+  .command("add")
+  .description("Interactively scaffold a new book entry")
+  .option("--books <dir>", "Path to books directory", "books")
+  .action((opts: { books: string }) => {
+    runAdd(opts.books).catch((e: unknown) => {
+      console.error(e instanceof Error ? e.message : String(e));
+      process.exit(1);
+    });
+  });
+
+program
+  .command("enrich [files...]")
+  .description("Fetch missing metadata from OpenBD / Google Books (no auth required)")
+  .action((files: string[]) => {
+    runEnrich(files).catch((e: unknown) => {
+      console.error(e instanceof Error ? e.message : String(e));
+      process.exit(1);
+    });
+  });
+
 const indexCmd = program.command("index").description("Manage the local SQLite index");
 
 indexCmd
   .command("build")
-  .description("Rebuild the SQLite index from books/*.yaml")
+  .description("Rebuild the SQLite index from books/*.yaml and topics/*.yaml")
   .option("--db <path>", "Path to SQLite database", "books.db")
   .option("--books <dir>", "Path to books directory", "books")
-  .action((opts: { db: string; books: string }) => {
-    runIndexBuild(opts.db, opts.books);
+  .option("--topics <dir>", "Path to topics directory", "topics")
+  .action((opts: { db: string; books: string; topics: string }) => {
+    runIndexBuild(opts.db, opts.books, opts.topics);
   });
 
 indexCmd

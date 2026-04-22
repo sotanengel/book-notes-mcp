@@ -1,5 +1,5 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { ListBooksInput } from "../schemas/tool-inputs.js";
 
 export const listBooksDef: Tool = {

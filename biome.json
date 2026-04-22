@@ -20,7 +20,7 @@
     "rules": {
       "recommended": true,
       "security": {
-        "noEval": "error"
+        "noGlobalEval": "error"
       },
       "style": {
         "noNonNullAssertion": "warn"
