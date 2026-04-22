@@ -12,24 +12,7 @@ interface BookData {
 function buildTemplate(slug: string, data: BookData): string {
   const heading = data.title_ja ?? data.title ?? slug;
 
-  return [
-    `# ${heading}`,
-    "",
-    "## なぜ読む",
-    "",
-    "",
-    "## 読書メモ",
-    "",
-    "",
-    "## 重要概念",
-    "",
-    "",
-    "## 印象に残った言葉",
-    "",
-    "",
-    "## アクション",
-    "",
-  ].join("\n");
+  return [`# ${heading}`, "", "## 読書メモ", ""].join("\n");
 }
 
 /**
