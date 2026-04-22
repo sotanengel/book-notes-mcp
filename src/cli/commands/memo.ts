@@ -77,14 +77,20 @@ export function formatMemoContent(content: string): string {
 export function createMemo(memosDir: string, slug: string, data: BookData): string | null {
   const dir = resolve(memosDir);
   const memoPath = resolve(dir, `${slug}.md`);
-  if (existsSync(memoPath)) return null;
 
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
   }
 
-  writeFileSync(memoPath, buildTemplate(slug, data), "utf-8");
-  return memoPath;
+  // Use "wx" flag: create exclusively — throws EEXIST if file already exists.
+  // This is atomic and avoids a TOCTOU race between checking and writing.
+  try {
+    writeFileSync(memoPath, buildTemplate(slug, data), { flag: "wx", encoding: "utf-8" });
+    return memoPath;
+  } catch (e: unknown) {
+    if ((e as NodeJS.ErrnoException).code === "EEXIST") return null;
+    throw e;
+  }
 }
 
 function collectYamlFiles(patterns: string[]): string[] {
