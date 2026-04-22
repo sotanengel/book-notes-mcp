@@ -15,8 +15,10 @@
     "mcp-server"
   ],
   "scripts": {
+    "sync": "tsx src/cli/index.ts sync",
     "validate": "tsx src/cli/index.ts validate",
     "format": "tsx src/cli/index.ts format",
+    "enrich": "tsx src/cli/index.ts enrich",
     "index": "tsx src/cli/index.ts index",
     "add": "tsx src/cli/index.ts add",
     "check-refs": "tsx src/cli/index.ts check-refs",
