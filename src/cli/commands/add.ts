@@ -1,6 +1,7 @@
 import { existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createInterface } from "node:readline";
+import { createMemo } from "./memo.js";
 
 const GENRES = [
   "business",
@@ -123,9 +124,19 @@ export async function runAdd(booksDir: string): Promise<void> {
 
     writeFileSync(outPath, `${lines.join("\n")}\n`, "utf-8");
     console.log(`\n✓ Created: ${outPath}`);
+
+    const memoPath = createMemo("memos", slug, {
+      title,
+      ...(titleJa ? { title_ja: titleJa } : {}),
+      authors,
+      ...(year && /^\d{4}$/.test(year) ? { publication_year: Number(year) } : {}),
+      ...(isbn && /^\d{13}$/.test(isbn) ? { isbn_13: isbn } : {}),
+      status,
+    });
+    if (memoPath) console.log(`✓ Memo:    ${memoPath}`);
+
     console.log("\nNext steps:");
-    console.log(`  npm run validate -- ${outPath}`);
-    console.log(`  npm run enrich -- ${outPath}   # fetch ISBN/metadata`);
+    console.log(`  npm run sync -- ${outPath}   # validate → format → enrich → index`);
   } finally {
     rl.close();
   }

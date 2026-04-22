@@ -16,6 +16,8 @@
   ],
   "scripts": {
     "sync": "tsx src/cli/index.ts sync",
+    "memo:new": "tsx src/cli/index.ts memo new",
+    "memo:format": "tsx src/cli/index.ts memo format",
     "validate": "tsx src/cli/index.ts validate",
     "format": "tsx src/cli/index.ts format",
     "enrich": "tsx src/cli/index.ts enrich",
