@@ -49,22 +49,36 @@ cp your-notes.md inbox/
 # 手元の AI CLI で YAML を生成
 cat prompts/structure.md inbox/your-notes.md | claude > books/your-book-author-2024.yaml
 
-# 検証・整形
-npm run validate -- books/your-book-author-2024.yaml
-npm run format -- books/your-book-author-2024.yaml
-
-# インデックス更新
-npm run index build
+# ノートを置いたら sync 一発で完了
+npm run sync
 ```
 
-### 2. CLI コマンド
+`sync` は以下を順番に実行します。途中でエラーがあればそのステップで止まり、修正すべき内容とヒントを表示します。
+
+```
+[1/5] Validating...       # スキーマ + ビジネスルール検証
+[2/5] Formatting...       # YAML フィールド順正規化
+[3/5] Enriching metadata  # OpenBD からメタデータ自動補完
+[4/5] Checking references # connections 参照整合性チェック
+[5/5] Building index...   # SQLite インデックス再構築
+```
+
+### 2. CLI コマンド一覧
 
 ```bash
-npm run validate -- books/           # スキーマ検証
-npm run validate -- books/ --strict  # 引用文字数エラーも検出
-npm run format -- books/             # YAML 整形
-npm run index build                  # SQLite インデックス構築
-npm run check-refs                   # connections の参照整合性チェック
+# ── 基本ワークフロー ──────────────────────────────────────────────────
+npm run sync                             # 全パイプラインを一括実行（推奨）
+npm run sync -- --skip-enrich            # ネットワーク不要モード
+npm run sync -- books/foo-bar-2024.yaml  # 特定ファイルのみ処理
+
+# ── 個別コマンド ──────────────────────────────────────────────────────
+npm run validate -- books/               # スキーマ検証
+npm run validate -- books/ --strict      # 引用文字数エラーも検出
+npm run format -- books/                 # YAML 整形
+npm run enrich -- books/                 # OpenBD メタデータ補完
+npm run check-refs                       # connections の参照整合性チェック
+npm run index build                      # SQLite インデックス構築
+npm run add                              # 対話式で新規エントリを作成
 ```
 
 ### 3. MCP Tools
