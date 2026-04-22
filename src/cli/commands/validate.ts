@@ -1,9 +1,9 @@
 import { readFileSync, statSync } from "node:fs";
 import { globSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, sep } from "node:path";
 import { parse } from "yaml";
 import { applyBusinessRules } from "../../validator/business-rules.js";
-import { validateBookEntry } from "../../validator/schema-validator.js";
+import { validateBookEntry, validateTopicNote } from "../../validator/schema-validator.js";
 
 export interface ValidateOptions {
   strict?: boolean;
@@ -61,10 +61,15 @@ export function runValidate(patterns: string[], opts: ValidateOptions): void {
       continue;
     }
 
-    const schemaResult = validateBookEntry(data);
-    applyBusinessRules(data as Parameters<typeof applyBusinessRules>[0], schemaResult, {
-      strict: opts.strict,
-    });
+    const isTopic = file.includes(`${sep}topics${sep}`) || file.includes("/topics/");
+    const schemaResult = isTopic
+      ? validateTopicNote(data)
+      : validateBookEntry(data);
+    if (!isTopic) {
+      applyBusinessRules(data as Parameters<typeof applyBusinessRules>[0], schemaResult, {
+        strict: opts.strict,
+      });
+    }
 
     const fileErrors = schemaResult.errors.map((e) => `${e.path}: ${e.message}`);
     const fileWarnings = schemaResult.warnings.map((w) => `${w.path}: ${w.message}`);

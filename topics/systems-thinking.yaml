@@ -1,0 +1,17 @@
+schema_version: "1.0"
+id: systems-thinking
+name: Systems Thinking
+description: |
+  システム思考とは、個々の要素ではなく要素間の相互作用・フィードバックループ・全体構造に
+  注目する思考様式。目標設定より仕組み設計を優先する考え方の基盤となる。
+  ビジネス・習慣形成・組織設計など広範な領域に適用できる。
+tags:
+  - systems-thinking
+  - mental-models
+  - feedback-loops
+related_books:
+  - book_id: atomic-habits-clear-2018
+    note: 習慣ループはシステム思考の実践例。Cue-Craving-Response-Rewardのフィードバック構造。
+  - book_id: deep-work-newport-2016
+    note: Deep Work環境の設計もシステム思考の応用。分散を生む環境要因を構造的に取り除く。
+connections: []
