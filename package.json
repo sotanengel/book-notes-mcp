@@ -32,6 +32,7 @@
     "@biomejs/biome": "1.9.4",
     "@types/better-sqlite3": "7.6.12",
     "@types/node": "22.10.7",
+    "@vitest/coverage-v8": "4.1.5",
     "husky": "9.1.7",
     "lint-staged": "15.3.0",
     "tsx": "4.21.0",
@@ -47,7 +48,11 @@
     "zod": "3.24.1"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["biome check --write"],
-    "books/**/*.yaml": ["tsx src/cli/index.ts validate"]
+    "*.{ts,tsx}": [
+      "biome check --write"
+    ],
+    "books/**/*.yaml": [
+      "tsx src/cli/index.ts validate"
+    ]
   }
 }
