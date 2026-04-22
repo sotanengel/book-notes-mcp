@@ -13,8 +13,8 @@ genre:
   - business
 status: completed
 read_sessions:
-  - start_date: "2026-03-10"
-    end_date: "2026-04-02"
+  - start_date: 2026-03-10
+    end_date: 2026-04-02
     pages_read: 320
 rating: 5
 tags:
@@ -26,7 +26,6 @@ summary: |
   行動変容は意志力ではなく「仕組み」で起こる。1%の改善を継続することによる複利効果と、
   アイデンティティを起点とした習慣設計（Cue-Craving-Response-Reward ループ）を中心テーマに据える。
   目標設定より環境設計と仕組みづくりを優先するアプローチが核心。
-
 key_concepts:
   - name: 習慣のループ（Cue-Craving-Response-Reward）
     description: 全ての習慣は4段階で構成される。きっかけ→欲求→反応→報酬。このループを意識的に設計することで習慣を作れる。
@@ -36,7 +35,6 @@ key_concepts:
     description: 目標（"本を読む"）ではなくアイデンティティ（"私は読書家だ"）から習慣を設計する。なりたい自分の投票を積み重ねる。
   - name: 1%ルール（複利効果）
     description: 毎日1%の改善を続けると1年で37倍になる。逆に毎日1%悪化すると0.03まで落ちる。小さな変化の長期的影響は大きい。
-
 highlights:
   - id: h-001
     page: 27
@@ -51,7 +49,6 @@ highlights:
     tags:
       - identity
       - behavior-change
-
 action_items:
   - id: a-001
     action: 毎朝の読書習慣をキューとして設定する（コーヒーを淹れたら読書）
@@ -61,16 +58,13 @@ action_items:
     action: 習慣トラッカーをNotionで作り、streakを可視化する
     priority: medium
     status: pending
-
 connections:
   - book_id: deep-work-newport-2016
     relation: applies
     note: Deep Work の習慣化にAtomic Habitsの環境設計アプローチを適用できる。
-
 open_questions:
   - 自分にとって最も重要な1%の改善はどの領域か？
   - アイデンティティと習慣の順序——先に習慣を作ってからアイデンティティが変わるのか？
-
 ai_generated:
   summary: false
   key_concepts: false
