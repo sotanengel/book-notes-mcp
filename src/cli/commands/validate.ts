@@ -10,7 +10,8 @@ export interface ValidateOptions {
   json?: boolean;
 }
 
-export function runValidate(patterns: string[], opts: ValidateOptions): void {
+/** Core validation logic. Returns true if all files are valid. */
+export function validateFiles(patterns: string[], opts: ValidateOptions): boolean {
   const files: string[] = [];
 
   for (const pattern of patterns) {
@@ -103,5 +104,9 @@ export function runValidate(patterns: string[], opts: ValidateOptions): void {
     console.log(`\n${total - failed}/${total} files valid${suffix}`);
   }
 
-  if (hasError) process.exit(1);
+  return !hasError;
+}
+
+export function runValidate(patterns: string[], opts: ValidateOptions): void {
+  if (!validateFiles(patterns, opts)) process.exit(1);
 }

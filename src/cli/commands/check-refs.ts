@@ -3,7 +3,8 @@ import { globSync } from "node:fs";
 import { basename, resolve } from "node:path";
 import { parse } from "yaml";
 
-export function runCheckRefs(booksDir: string): void {
+/** Core reference-check logic. Returns true if all connections are valid. */
+export function checkRefs(booksDir: string): boolean {
   const files = globSync(`${booksDir}/**/*.yaml`).map((f) => resolve(f));
   const knownIds = new Set<string>();
   const entries: Array<{ id: string; connections: Array<{ book_id: string }> }> = [];
@@ -37,6 +38,11 @@ export function runCheckRefs(booksDir: string): void {
     console.log(`All ${entries.length} book connections valid ✓`);
   } else {
     console.error(`\n${broken} broken reference(s) found`);
-    process.exit(1);
   }
+
+  return broken === 0;
+}
+
+export function runCheckRefs(booksDir: string): void {
+  if (!checkRefs(booksDir)) process.exit(1);
 }

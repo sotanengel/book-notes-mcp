@@ -5,6 +5,7 @@ import { runCheckRefs } from "./commands/check-refs.js";
 import { runEnrich } from "./commands/enrich.js";
 import { runFormat } from "./commands/format.js";
 import { runIndexBuild, runIndexStatus } from "./commands/index-cmd.js";
+import { runSync } from "./commands/sync.js";
 import { runValidate } from "./commands/validate.js";
 
 const program = new Command();
@@ -76,5 +77,31 @@ program
   .action((opts: { books: string }) => {
     runCheckRefs(opts.books);
   });
+
+program
+  .command("sync [files...]")
+  .description("Run the full pipeline: validate → format → enrich → check-refs → index")
+  .option("--books <dir>", "Path to books directory", "books")
+  .option("--topics <dir>", "Path to topics directory", "topics")
+  .option("--db <path>", "Path to SQLite database", "books.db")
+  .option("--strict", "Treat warnings as errors during validation")
+  .option("--skip-enrich", "Skip the metadata enrichment step")
+  .action(
+    (
+      files: string[],
+      opts: {
+        books: string;
+        topics: string;
+        db: string;
+        strict?: boolean;
+        skipEnrich?: boolean;
+      }
+    ) => {
+      runSync(files, opts).catch((e: unknown) => {
+        console.error(e instanceof Error ? e.message : String(e));
+        process.exit(1);
+      });
+    }
+  );
 
 program.parse();
