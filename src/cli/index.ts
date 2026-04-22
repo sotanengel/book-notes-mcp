@@ -9,10 +9,7 @@ import { runValidate } from "./commands/validate.js";
 
 const program = new Command();
 
-program
-  .name("book-notes")
-  .description("CLI for managing book note YAML entries")
-  .version("0.1.0");
+program.name("book-notes").description("CLI for managing book note YAML entries").version("0.1.0");
 
 program
   .command("validate [files...]")

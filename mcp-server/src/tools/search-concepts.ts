@@ -1,5 +1,5 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { SearchConceptsInput } from "../schemas/tool-inputs.js";
 
 export const searchConceptsDef: Tool = {

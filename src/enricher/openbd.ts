@@ -42,16 +42,15 @@ async function fetchOpenBD(isbn13: string): Promise<BookMetadata | null> {
     if (!item?.summary) return null;
 
     const s = item.summary;
-    const year = s.pubdate ? parseInt(s.pubdate.slice(0, 4), 10) : undefined;
+    const year = s.pubdate ? Number.parseInt(s.pubdate.slice(0, 4), 10) : undefined;
 
-    return {
-      title: s.title,
-      authors: s.author ? [s.author] : undefined,
-      isbn13,
-      publicationYear: Number.isNaN(year ?? NaN) ? undefined : year,
-      publisher: s.publisher,
-      language: "ja",
-    };
+    const meta: BookMetadata = { isbn13, language: "ja" };
+    if (s.title) meta.title = s.title;
+    if (s.author) meta.authors = [s.author];
+    if (s.publisher) meta.publisher = s.publisher;
+    const validYear = year !== undefined && !Number.isNaN(year) ? year : undefined;
+    if (validYear !== undefined) meta.publicationYear = validYear;
+    return meta;
   } catch {
     return null;
   }
@@ -81,16 +80,16 @@ async function fetchGoogleBooks(isbn13: string): Promise<BookMetadata | null> {
 
     const info = data.items[0].volumeInfo;
     const yearStr = info.publishedDate?.slice(0, 4);
-    const year = yearStr ? parseInt(yearStr, 10) : undefined;
+    const year = yearStr ? Number.parseInt(yearStr, 10) : undefined;
 
-    return {
-      title: info.title,
-      authors: info.authors,
-      isbn13,
-      publicationYear: Number.isNaN(year ?? NaN) ? undefined : year,
-      publisher: info.publisher,
-      language: info.language,
-    };
+    const meta: BookMetadata = { isbn13 };
+    if (info.title) meta.title = info.title;
+    if (info.authors) meta.authors = info.authors;
+    if (info.publisher) meta.publisher = info.publisher;
+    if (info.language) meta.language = info.language;
+    const validYear = year !== undefined && !Number.isNaN(year) ? year : undefined;
+    if (validYear !== undefined) meta.publicationYear = validYear;
+    return meta;
   } catch {
     return null;
   }

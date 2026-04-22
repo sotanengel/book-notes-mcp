@@ -1,29 +1,25 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import Ajv from "ajv/dist/2020.js";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import addFormats from "ajv-formats";
+import { Ajv2020 } from "ajv/dist/2020.js";
 import type { ValidationResult } from "./types.js";
 import { addError, createResult } from "./types.js";
 
-const SCHEMA_DIR = join(import.meta.dirname ?? __dirname, "../../schema");
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SCHEMA_DIR = join(__dirname, "../../schema");
 
-let ajv: Ajv | null = null;
+let ajv: InstanceType<typeof Ajv2020> | null = null;
 
-function getAjv(): Ajv {
+function getAjv(): InstanceType<typeof Ajv2020> {
   if (ajv) return ajv;
 
-  ajv = new Ajv({
-    allErrors: true,
-    strict: true,
-  });
-  addFormats(ajv as Parameters<typeof addFormats>[0]);
+  ajv = new Ajv2020({ allErrors: true, strict: true });
+  // ajv-formats is a CJS module; cast needed for ESM interop
+  (addFormats as unknown as (a: InstanceType<typeof Ajv2020>) => void)(ajv);
 
-  const bookSchema = JSON.parse(
-    readFileSync(join(SCHEMA_DIR, "book-entry.schema.json"), "utf-8")
-  );
-  const topicSchema = JSON.parse(
-    readFileSync(join(SCHEMA_DIR, "topic-note.schema.json"), "utf-8")
-  );
+  const bookSchema = JSON.parse(readFileSync(join(SCHEMA_DIR, "book-entry.schema.json"), "utf-8"));
+  const topicSchema = JSON.parse(readFileSync(join(SCHEMA_DIR, "topic-note.schema.json"), "utf-8"));
 
   ajv.addSchema(bookSchema, "book-entry");
   ajv.addSchema(topicSchema, "topic-note");

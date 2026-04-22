@@ -33,7 +33,7 @@ export async function runEnrich(patterns: string[]): Promise<void> {
   for (const file of files) {
     const raw = readFileSync(file, "utf-8");
     const data = parse(raw) as Record<string, unknown>;
-    const isbn = data["isbn_13"] as string | undefined;
+    const isbn = data.isbn_13 as string | undefined;
 
     if (!isbn) {
       console.log(`SKIP (no isbn_13): ${file}`);
@@ -50,20 +50,20 @@ export async function runEnrich(patterns: string[]): Promise<void> {
 
     let changed = false;
 
-    if (meta.title && !data["title"]) {
-      data["title"] = meta.title;
+    if (meta.title && !data.title) {
+      data.title = meta.title;
       changed = true;
     }
-    if (meta.authors && (!data["authors"] || (data["authors"] as string[]).length === 0)) {
-      data["authors"] = meta.authors;
+    if (meta.authors && (!data.authors || (data.authors as string[]).length === 0)) {
+      data.authors = meta.authors;
       changed = true;
     }
-    if (meta.publicationYear && !data["publication_year"]) {
-      data["publication_year"] = meta.publicationYear;
+    if (meta.publicationYear && !data.publication_year) {
+      data.publication_year = meta.publicationYear;
       changed = true;
     }
-    if (meta.language && !data["language"]) {
-      data["language"] = meta.language;
+    if (meta.language && !data.language) {
+      data.language = meta.language;
       changed = true;
     }
 

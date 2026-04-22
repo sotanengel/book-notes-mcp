@@ -57,15 +57,11 @@ export function runIndexBuild(dbPath: string, booksDir: string, topicsDir: strin
 export function runIndexStatus(dbPath: string): void {
   const db = openDb(dbPath, true);
   const bookCount = (db.prepare("SELECT COUNT(*) as n FROM books").get() as { n: number }).n;
-  const hlCount = (
-    db.prepare("SELECT COUNT(*) as n FROM highlights").get() as { n: number }
-  ).n;
-  const acCount = (
-    db.prepare("SELECT COUNT(*) as n FROM action_items").get() as { n: number }
-  ).n;
-  const topicCount = db
-    .prepare("SELECT COUNT(*) as n FROM topics")
-    .get() as { n: number } | undefined;
+  const hlCount = (db.prepare("SELECT COUNT(*) as n FROM highlights").get() as { n: number }).n;
+  const acCount = (db.prepare("SELECT COUNT(*) as n FROM action_items").get() as { n: number }).n;
+  const topicCount = db.prepare("SELECT COUNT(*) as n FROM topics").get() as
+    | { n: number }
+    | undefined;
   db.close();
 
   console.log(`Books:       ${bookCount}`);

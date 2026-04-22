@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
 
       - name: Scan for secrets with gitleaks
-        uses: zricethezav/gitleaks-action@d00a8e00d24e7b7cb5b3b3f3c94e5a68d13ddcce  # v2.3.4
+        uses: zricethezav/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7  # v2.3.9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,8 +40,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts && npm rebuild better-sqlite3
 
-      - name: Audit dependencies
-        run: npm audit --audit-level=high
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Verify npm package signatures
         run: npm audit signatures

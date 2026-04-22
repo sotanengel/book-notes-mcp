@@ -58,11 +58,7 @@ function checkIsbn13Checkdigit(data: BookEntry, result: ValidationResult): void 
   }
 }
 
-function checkHighlightIds(
-  data: BookEntry,
-  result: ValidationResult,
-  strict: boolean
-): void {
+function checkHighlightIds(data: BookEntry, result: ValidationResult, strict: boolean): void {
   const highlights = data.highlights;
   if (!highlights) return;
 
@@ -126,15 +122,8 @@ function checkActionItemIds(data: BookEntry, result: ValidationResult): void {
 }
 
 function checkCompletedSessionRequired(data: BookEntry, result: ValidationResult): void {
-  if (
-    data.status === "completed" &&
-    (!data.read_sessions || data.read_sessions.length === 0)
-  ) {
-    addWarning(
-      result,
-      "/read_sessions",
-      'status is "completed" but no read_sessions found'
-    );
+  if (data.status === "completed" && (!data.read_sessions || data.read_sessions.length === 0)) {
+    addWarning(result, "/read_sessions", 'status is "completed" but no read_sessions found');
   }
 }
 

@@ -7,13 +7,11 @@ let db: Database.Database | null = null;
 export function getDb(): Database.Database {
   if (db) return db;
 
-  const dbPath = process.env["DB_PATH"] ?? "books.db";
+  const dbPath = process.env.DB_PATH ?? "books.db";
   const resolved = resolve(dbPath);
 
   if (!existsSync(resolved)) {
-    throw new Error(
-      `Database not found: ${resolved}\nRun: npm run index build`
-    );
+    throw new Error(`Database not found: ${resolved}\nRun: npm run index build`);
   }
 
   // Ensure path resolves to expected location (basic path traversal guard)

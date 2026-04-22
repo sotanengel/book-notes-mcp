@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { basename } from "node:path";
-import Database from "better-sqlite3";
+import type Database from "better-sqlite3";
 import { parse } from "yaml";
 
 interface TopicNote {

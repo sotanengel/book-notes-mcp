@@ -62,13 +62,13 @@ export function runValidate(patterns: string[], opts: ValidateOptions): void {
     }
 
     const isTopic = file.includes(`${sep}topics${sep}`) || file.includes("/topics/");
-    const schemaResult = isTopic
-      ? validateTopicNote(data)
-      : validateBookEntry(data);
+    const schemaResult = isTopic ? validateTopicNote(data) : validateBookEntry(data);
     if (!isTopic) {
-      applyBusinessRules(data as Parameters<typeof applyBusinessRules>[0], schemaResult, {
-        strict: opts.strict,
-      });
+      applyBusinessRules(
+        data as Parameters<typeof applyBusinessRules>[0],
+        schemaResult,
+        opts.strict ? { strict: true } : {}
+      );
     }
 
     const fileErrors = schemaResult.errors.map((e) => `${e.path}: ${e.message}`);
@@ -99,10 +99,8 @@ export function runValidate(patterns: string[], opts: ValidateOptions): void {
   } else {
     const total = files.length;
     const failed = results.filter((r) => r.errors.length > 0).length;
-    console.log(
-      `\n${total - failed}/${total} files valid` +
-        (hasError ? ` — ${failed} error(s)` : " ✓")
-    );
+    const suffix = hasError ? ` — ${failed} error(s)` : " ✓";
+    console.log(`\n${total - failed}/${total} files valid${suffix}`);
   }
 
   if (hasError) process.exit(1);

@@ -1,5 +1,5 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { GetActionableInsightsInput } from "../schemas/tool-inputs.js";
 
 export const getActionableInsightsDef: Tool = {
@@ -24,10 +24,7 @@ export const getActionableInsightsDef: Tool = {
   },
 };
 
-export function handleGetActionableInsights(
-  args: unknown,
-  db: Database.Database
-): CallToolResult {
+export function handleGetActionableInsights(args: unknown, db: Database.Database): CallToolResult {
   const params = GetActionableInsightsInput.parse(args);
 
   const conditions: string[] = [];

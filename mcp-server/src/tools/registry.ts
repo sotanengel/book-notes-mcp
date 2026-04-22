@@ -1,14 +1,17 @@
-import type Database from "better-sqlite3";
 import type { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
-import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
+import type Database from "better-sqlite3";
 import { ZodError } from "zod";
 import { findConnectionsDef, handleFindConnections } from "./find-connections.js";
-import { getActionableInsightsDef, handleGetActionableInsights } from "./get-actionable-insights.js";
+import {
+  getActionableInsightsDef,
+  handleGetActionableInsights,
+} from "./get-actionable-insights.js";
 import { getBookDef, handleGetBook } from "./get-book.js";
-import { listBooksDef, handleListBooks } from "./list-books.js";
-import { searchBooksDef, handleSearchBooks } from "./search-books.js";
-import { searchConceptsDef, handleSearchConcepts } from "./search-concepts.js";
-import { searchHighlightsDef, handleSearchHighlights } from "./search-highlights.js";
+import { handleListBooks, listBooksDef } from "./list-books.js";
+import { handleSearchBooks, searchBooksDef } from "./search-books.js";
+import { handleSearchConcepts, searchConceptsDef } from "./search-concepts.js";
+import { handleSearchHighlights, searchHighlightsDef } from "./search-highlights.js";
 
 export const ALL_TOOLS: Tool[] = [
   listBooksDef,
@@ -32,11 +35,7 @@ const HANDLERS: Record<string, Handler> = {
   get_actionable_insights: handleGetActionableInsights,
 };
 
-export function dispatchTool(
-  name: string,
-  args: unknown,
-  db: Database.Database
-): CallToolResult {
+export function dispatchTool(name: string, args: unknown, db: Database.Database): CallToolResult {
   const handler = HANDLERS[name];
   if (!handler) {
     throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${name}`);

@@ -1,10 +1,17 @@
-import { createInterface } from "node:readline";
-import { writeFileSync, existsSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { createInterface } from "node:readline";
 
 const GENRES = [
-  "business", "technology", "psychology", "management",
-  "marketing", "economics", "philosophy", "biography", "other",
+  "business",
+  "technology",
+  "psychology",
+  "management",
+  "marketing",
+  "economics",
+  "philosophy",
+  "biography",
+  "other",
 ];
 const LANGUAGES = ["ja", "en", "zh", "de", "fr", "es", "ko", "other"];
 const STATUSES = ["to-read", "reading", "completed", "abandoned", "reference"];
@@ -13,7 +20,7 @@ function slugify(text: string): string {
   return text
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\p{M}/gu, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
@@ -45,11 +52,20 @@ export async function runAdd(booksDir: string): Promise<void> {
 
   try {
     const title = (await prompt(rl, "Title (required): ")).trim();
-    if (!title) { console.error("Title is required."); process.exit(1); }
+    if (!title) {
+      console.error("Title is required.");
+      process.exit(1);
+    }
 
     const authorsRaw = (await prompt(rl, "Authors (comma-separated): ")).trim();
-    if (!authorsRaw) { console.error("At least one author is required."); process.exit(1); }
-    const authors = authorsRaw.split(",").map((a) => a.trim()).filter(Boolean);
+    if (!authorsRaw) {
+      console.error("At least one author is required.");
+      process.exit(1);
+    }
+    const authors = authorsRaw
+      .split(",")
+      .map((a) => a.trim())
+      .filter(Boolean);
 
     const authorFamily = slugify(authors[0]?.split(" ").pop() ?? "unknown");
     const yearRaw = (await prompt(rl, "Publication year (e.g. 2024): ")).trim();
@@ -63,7 +79,12 @@ export async function runAdd(booksDir: string): Promise<void> {
 
     console.log(`Genres: ${GENRES.join(", ")}`);
     const genreRaw = (await prompt(rl, "Genre(s) (comma-separated, optional): ")).trim();
-    const genre = genreRaw ? genreRaw.split(",").map((g) => g.trim()).filter(Boolean) : [];
+    const genre = genreRaw
+      ? genreRaw
+          .split(",")
+          .map((g) => g.trim())
+          .filter(Boolean)
+      : [];
 
     console.log(`Status: ${STATUSES.join(", ")}`);
     const status = (await prompt(rl, "Status [to-read]: ")).trim() || "to-read";
@@ -78,31 +99,31 @@ export async function runAdd(booksDir: string): Promise<void> {
       `title: ${JSON.stringify(title)}`,
     ];
     if (titleJa) lines.push(`title_ja: ${JSON.stringify(titleJa)}`);
-    lines.push(`authors:`);
+    lines.push("authors:");
     for (const a of authors) lines.push(`  - ${JSON.stringify(a)}`);
     if (isbn && /^\d{13}$/.test(isbn)) lines.push(`isbn_13: "${isbn}"`);
     if (/^\d{4}$/.test(year)) lines.push(`publication_year: ${year}`);
     if (LANGUAGES.includes(language)) lines.push(`language: ${language}`);
     if (genre.length > 0) {
-      lines.push(`genre:`);
+      lines.push("genre:");
       for (const g of genre) lines.push(`  - ${g}`);
     }
     lines.push(`status: ${status}`);
-    lines.push(`tags: []`);
+    lines.push("tags: []");
     lines.push(`summary: ""`);
-    lines.push(`key_concepts: []`);
-    lines.push(`highlights: []`);
-    lines.push(`action_items: []`);
-    lines.push(`connections: []`);
-    lines.push(`open_questions: []`);
-    lines.push(`ai_generated:`);
-    lines.push(`  summary: false`);
-    lines.push(`  key_concepts: false`);
-    lines.push(`  tags: false`);
+    lines.push("key_concepts: []");
+    lines.push("highlights: []");
+    lines.push("action_items: []");
+    lines.push("connections: []");
+    lines.push("open_questions: []");
+    lines.push("ai_generated:");
+    lines.push("  summary: false");
+    lines.push("  key_concepts: false");
+    lines.push("  tags: false");
 
-    writeFileSync(outPath, lines.join("\n") + "\n", "utf-8");
+    writeFileSync(outPath, `${lines.join("\n")}\n`, "utf-8");
     console.log(`\n✓ Created: ${outPath}`);
-    console.log(`\nNext steps:`);
+    console.log("\nNext steps:");
     console.log(`  npm run validate -- ${outPath}`);
     console.log(`  npm run enrich -- ${outPath}   # fetch ISBN/metadata`);
   } finally {
