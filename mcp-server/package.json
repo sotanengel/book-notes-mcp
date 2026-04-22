@@ -1,0 +1,13 @@
+{
+  "name": "book-notes-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server for book-notes-mcp",
+  "bin": {
+    "book-notes-mcp": "./src/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0"
+  }
+}

@@ -1,0 +1,43 @@
+schema_version: "1.0"
+id: test-book-author-2024
+slug: test-book-author-2024
+title: Test Book
+title_ja: テスト本
+authors:
+  - Test Author
+isbn_13: "9780735211292"
+publication_year: 2024
+language: en
+genre:
+  - business
+status: completed
+read_sessions:
+  - start_date: "2024-01-01"
+    end_date: "2024-01-10"
+rating: 4
+tags:
+  - testing
+  - example
+summary: A test book for validation.
+key_concepts:
+  - name: Test Concept
+    description: A concept used in testing.
+highlights:
+  - id: h-001
+    page: 10
+    text: This is a test highlight.
+    note: My note about this.
+    tags:
+      - testing
+action_items:
+  - id: a-001
+    action: Do something from this book.
+    priority: high
+    status: pending
+connections: []
+open_questions:
+  - What is the key takeaway?
+ai_generated:
+  summary: false
+  key_concepts: false
+  tags: false

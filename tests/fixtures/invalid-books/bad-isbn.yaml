@@ -1,0 +1,8 @@
+schema_version: "1.0"
+id: bad-isbn-author-2024
+slug: bad-isbn-author-2024
+title: Bad ISBN Book
+authors:
+  - Author Name
+isbn_13: "9780000000001"
+status: to-read

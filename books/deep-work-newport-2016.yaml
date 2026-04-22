@@ -1,0 +1,75 @@
+schema_version: "1.0"
+id: deep-work-newport-2016
+slug: deep-work-newport-2016
+title: Deep Work
+title_ja: 大事なことに集中する
+authors:
+  - Cal Newport
+isbn_13: "9781455586691"
+publication_year: 2016
+language: en
+genre:
+  - business
+  - psychology
+status: completed
+read_sessions:
+  - start_date: "2026-02-01"
+    end_date: "2026-02-20"
+    pages_read: 296
+rating: 5
+tags:
+  - focus
+  - productivity
+  - knowledge-work
+  - digital-minimalism
+summary: |
+  深い集中状態（Deep Work）こそが知的労働者の核心的スキルであり、
+  希少で価値ある成果を生む唯一の方法。SNSや通知による浅い仕事（Shallow Work）との対比で、
+  集中の仕組みを意図的に設計することを提唱する。
+
+key_concepts:
+  - name: Deep Work
+    description: 認知能力を限界まで使う、集中した状態での職業活動。新しい価値を生み、スキルを向上させ、再現が難しい。
+  - name: Shallow Work
+    description: 認知負荷が低く、ロジスティクス的なタスク（メール確認、会議など）。Deep Workで生まれた価値を消費する側。
+  - name: The 4 Disciplines of Execution (4DX)
+    description: 最重要目標への集中・先行指標の追跡・スコアボードの可視化・アカウンタビリティの確保。ビジネスフレームワークを習慣設計に応用。
+
+highlights:
+  - id: h-001
+    page: 14
+    text: Deep work is the ability to focus without distraction on a cognitively demanding task.
+    note: Deep Work の定義。認知負荷が高いことと集中が両立してこそ。
+    tags:
+      - focus
+      - definition
+  - id: h-002
+    page: 157
+    text: To produce at your peak level you need to work for extended periods with full concentration on a single task free from distraction.
+    note: 長時間・単一タスク・無分散——この3条件が揃って初めてピーク状態に達する。
+    tags:
+      - focus
+      - productivity
+
+action_items:
+  - id: a-001
+    action: 毎日4時間のDeep Workブロックをカレンダーに確保する
+    priority: high
+    status: in-progress
+  - id: a-002
+    action: SlackとメールのNotificationをオフにして確認時間を固定する
+    priority: high
+    status: pending
+
+connections:
+  - book_id: atomic-habits-clear-2018
+    relation: applies
+    note: Deep Work の習慣化にAtomic Habitsの環境設計アプローチを適用できる。
+
+open_questions:
+  - 自分のDeep Work可能な最長連続時間はどのくらいか？
+
+ai_generated:
+  summary: false
+  key_concepts: false
+  tags: false

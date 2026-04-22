@@ -1,0 +1,70 @@
+schema_version: "1.0"
+id: zero-to-one-thiel-2014
+slug: zero-to-one-thiel-2014
+title: Zero to One
+title_ja: ゼロ・トゥ・ワン
+authors:
+  - Peter Thiel
+  - Blake Masters
+isbn_13: "9780804139021"
+publication_year: 2014
+language: en
+genre:
+  - business
+  - economics
+status: completed
+read_sessions:
+  - start_date: "2026-01-05"
+    end_date: "2026-01-18"
+    pages_read: 224
+rating: 4
+tags:
+  - startup
+  - monopoly
+  - innovation
+  - contrarian-thinking
+summary: |
+  真のイノベーションは0から1を生む（垂直的進歩）こと。1から nへの模倣（水平的進歩）と対比。
+  独占こそが持続的価値創造の源泉であり、競争は破壊的。
+  スタートアップは秘密（まだ誰も気づいていない真実）を見つけ、
+  それを独占的に解決することで大きな価値を生める。
+
+key_concepts:
+  - name: 0から1（垂直的進歩）
+    description: 全く新しいものを作ること。既存のものを複製・改善するのではなく、世界に存在しなかった何かを創造する。
+  - name: 独占の論理
+    description: 競争は利益を破壊する。独自技術・ネットワーク効果・規模の経済・ブランドによる独占が持続的価値の源泉。
+  - name: Definite Optimism
+    description: 未来は決定可能で、自分が形作れると信じる姿勢。IndefiniteやPessimisticな思考との対比。
+
+highlights:
+  - id: h-001
+    page: 35
+    text: Competition is for losers.
+    note: 競争激化は全員の収益を圧迫する。差別化・独占ポジションの重要性の核心。
+    tags:
+      - monopoly
+      - strategy
+  - id: h-002
+    page: 8
+    text: What important truth do very few people agree with you on?
+    note: コントラリアン思考の問い。逆張りの真実を持っているか？自分への問いとして常に持ちたい。
+    tags:
+      - contrarian-thinking
+
+action_items:
+  - id: a-001
+    action: 自分の仕事で「誰も気づいていない真実（秘密）」を3つ書き出す
+    priority: medium
+    status: pending
+
+connections: []
+
+open_questions:
+  - 自分が信じている「誰も同意しない重要な真実」は何か？
+  - 独占を目指すべき領域はどこか？
+
+ai_generated:
+  summary: false
+  key_concepts: false
+  tags: false

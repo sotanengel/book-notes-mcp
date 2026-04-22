@@ -1,0 +1,17 @@
+[extend]
+# Use the default gitleaks ruleset as base
+useDefault = true
+
+[allowlist]
+description = "Project-level allowlist"
+paths = [
+  '''gitleaks\.toml''',
+  '''\.gitignore''',
+  '''SECURITY\.md''',
+]
+
+# Allow example/placeholder values in prompts
+regexes = [
+  '''EXAMPLE_KEY''',
+  '''your-api-key-here''',
+]

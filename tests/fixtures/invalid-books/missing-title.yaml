@@ -1,0 +1,6 @@
+schema_version: "1.0"
+id: missing-title-author-2024
+slug: missing-title-author-2024
+authors:
+  - Author Name
+status: to-read

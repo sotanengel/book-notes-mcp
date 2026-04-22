@@ -1,0 +1,9 @@
+# All changes require review
+* @nagaharasatsudai
+
+# Schema changes require extra care
+/schema/ @nagaharasatsudai
+/package.json @nagaharasatsudai
+/package-lock.json @nagaharasatsudai
+/.github/workflows/ @nagaharasatsudai
+/.npmrc @nagaharasatsudai

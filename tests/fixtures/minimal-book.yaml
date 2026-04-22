@@ -1,0 +1,7 @@
+schema_version: "1.0"
+id: minimal-author-2024
+slug: minimal-author-2024
+title: Minimal Book
+authors:
+  - Author Name
+status: to-read
