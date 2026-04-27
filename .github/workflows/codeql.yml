@@ -24,7 +24,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: github/codeql-action/init@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0  # v3.28.9
+      - uses: github/codeql-action/init@95e58e9a2cdfd71adc6e0353d5c52f41a045d225  # v4.35.2
         with:
           languages: ${{ matrix.language }}
           queries: security-extended
@@ -36,6 +36,6 @@ jobs:
 
       - run: npm ci --ignore-scripts && npm rebuild better-sqlite3
 
-      - uses: github/codeql-action/analyze@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0  # v3.28.9
+      - uses: github/codeql-action/analyze@95e58e9a2cdfd71adc6e0353d5c52f41a045d225  # v4.35.2
         with:
           category: "/language:${{ matrix.language }}"
