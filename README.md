@@ -38,6 +38,47 @@ npm run index build
 
 ---
 
+## Docker で使う
+
+### イメージのビルド
+
+```bash
+docker build -t book-notes-mcp .
+```
+
+### Claude Desktop に登録（Docker 経由）
+
+`~/.config/claude/claude_desktop_config.json` に追記:
+
+```json
+{
+  "mcpServers": {
+    "book-notes": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "-v", "/path/to/book-notes-mcp/books:/app/books:ro",
+        "-v", "/path/to/book-notes-mcp/memos:/app/memos:ro",
+        "-v", "/path/to/book-notes-mcp/inbox:/app/inbox",
+        "-v", "book-notes-db:/app/db",
+        "-e", "DB_PATH=/app/db/books.db",
+        "book-notes-mcp"
+      ]
+    }
+  }
+}
+```
+
+### CLI コマンドを Docker で実行
+
+```bash
+docker compose run --rm book-notes-mcp npm run sync
+docker compose run --rm book-notes-mcp npm run validate
+docker compose run --rm book-notes-mcp npm run index build
+```
+
+---
+
 ## 使い方
 
 ### 1. 読書ノートを構造化する

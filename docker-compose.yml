@@ -1,0 +1,16 @@
+services:
+  book-notes-mcp:
+    build: .
+    volumes:
+      - ./books:/app/books
+      - ./memos:/app/memos
+      - ./inbox:/app/inbox
+      - ./schema:/app/schema:ro
+      - ./topics:/app/topics:ro
+      - book-notes-db:/app/db
+    environment:
+      DB_PATH: /app/db/books.db
+    stdin_open: true
+
+volumes:
+  book-notes-db:
